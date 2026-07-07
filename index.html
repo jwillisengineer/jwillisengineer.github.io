@@ -3,22 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>James B. Willis – Computer Engineer</title>
+    <title>James B. Willis — Computer Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              primary: '#2563EB',
-              secondary: '#06B6D4',
-              dark: '#0F172A',
-              body: '#475569',
-              surface: '#F8FAFC',
-              card: '#FFFFFF',
+              board: '#0B1712',
+              boarddeep: '#071009',
+              paper: '#EFF3EE',
+              papercard: '#FFFFFF',
+              copper: '#B87333',
+              copperlight: '#D99A5B',
+              phosphor: '#5EEBA5',
+              phosphordim: '#3E9E70',
+              amber: '#E8A33D',
+              ink: '#14201A',
+              inksoft: '#4B5D53',
+              silk: '#E9E7DD',
             },
             fontFamily: {
-              inter: ['Inter', 'system-ui', 'sans-serif'],
+              mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+              sans: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
             },
           },
         },
@@ -27,629 +34,725 @@
     <script src="https://unpkg.com/lucide@latest" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
       :root {
-        --primary: #2563EB;
-        --secondary: #06B6D4;
-        --dark: #0F172A;
-        --body-color: #475569;
-        --surface: #F8FAFC;
-        --gradient: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
+        --board: #0B1712;
+        --board-deep: #071009;
+        --paper: #EFF3EE;
+        --paper-card: #FFFFFF;
+        --copper: #B87333;
+        --copper-light: #D99A5B;
+        --phosphor: #5EEBA5;
+        --phosphor-dim: #3E9E70;
+        --amber: #E8A33D;
+        --ink: #14201A;
+        --ink-soft: #4B5D53;
+        --silk: #E9E7DD;
+        --silk-dim: rgba(233, 231, 221, 0.6);
+        --line-dark: rgba(233, 231, 221, 0.16);
+        --line-light: rgba(20, 32, 26, 0.13);
+        --trace-grad: linear-gradient(115deg, var(--copper) 0%, var(--phosphor) 100%);
       }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
 
-      html {
-        scroll-behavior: smooth;
-        scroll-padding-top: 72px;
-      }
+      html { scroll-behavior: smooth; scroll-padding-top: 84px; }
 
       body {
-        font-family: 'Inter', system-ui, sans-serif;
-        color: var(--dark);
-        background: #FFFFFF;
+        font-family: 'IBM Plex Sans', system-ui, sans-serif;
+        color: var(--ink);
+        background: var(--paper);
         overflow-x: hidden;
       }
 
-      .gradient-bg {
-        background: var(--gradient);
+      .font-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+      /* ---- texture ---- */
+      .dot-grid-dark {
+        background-image: radial-gradient(rgba(233,231,221,0.09) 1px, transparent 1px);
+        background-size: 26px 26px;
+      }
+      .dot-grid-light {
+        background-image: radial-gradient(rgba(20,32,26,0.07) 1px, transparent 1px);
+        background-size: 24px 24px;
       }
 
-      .gradient-text {
-        background: var(--gradient);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
+      /* ---- breadboard rail ---- */
+      .rail-red { background: #B5453D; }
+      .rail-blue { background: #3B5B8C; }
 
-      .gradient-bar {
-        height: 4px;
-        background: var(--gradient);
-        border-radius: 2px;
-      }
-
-      .card-hover {
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-
-      .card-hover:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-      }
-
-      .skill-pill {
-        background: var(--gradient);
-        color: white;
-        padding: 6px 14px;
-        border-radius: 9999px;
-        font-size: 0.8rem;
+      /* ---- eyebrow (code-comment) ---- */
+      .eyebrow {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
         font-weight: 500;
-        display: inline-block;
-        transition: box-shadow 0.2s ease, transform 0.2s ease;
+        letter-spacing: 0.06em;
+        color: var(--copper);
       }
+      .eyebrow.on-dark { color: var(--phosphor); }
 
-      .skill-pill:hover {
-        box-shadow: 0 0 16px rgba(37, 99, 235, 0.4);
-        transform: scale(1.05);
-      }
-
-      .nav-scrolled {
-        background: rgba(255, 255, 255, 0.97) !important;
-        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
-        backdrop-filter: blur(12px);
-      }
-
+      /* ---- nav ---- */
       .nav-link {
         position: relative;
+        color: var(--silk-dim);
         transition: color 0.2s ease;
       }
-
-      .nav-link::after {
-        content: '';
+      .nav-link:hover { color: var(--silk); }
+      .nav-link.active { color: var(--phosphor); }
+      .nav-link .via {
         position: absolute;
-        bottom: -4px;
         left: 50%;
-        transform: translateX(-50%) scaleX(0);
-        width: 100%;
-        height: 2px;
-        background: var(--gradient);
-        border-radius: 1px;
+        bottom: -10px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--phosphor);
+        transform: translateX(-50%) scale(0);
+        box-shadow: 0 0 8px var(--phosphor);
         transition: transform 0.2s ease;
       }
+      .nav-link.active .via { transform: translateX(-50%) scale(1); }
 
-      .nav-link.active {
-        color: var(--primary) !important;
+      /* ---- chip logo ---- */
+      .chip-logo {
+        position: relative;
+        width: 38px;
+        height: 38px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #16261F, #0B1712);
+        border: 1px solid rgba(233,231,221,0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 700;
+        font-size: 0.75rem;
+        color: var(--phosphor);
+        letter-spacing: 0.02em;
+      }
+      .chip-logo::before {
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--copper);
       }
 
-      .nav-link.active::after {
-        transform: translateX(-50%) scaleX(1);
+      /* ---- hero ---- */
+      .hero-corner {
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        border-color: var(--silk-dim);
+      }
+      .corner-tl { top: 18px; left: 18px; border-top: 1.5px solid; border-left: 1.5px solid; }
+      .corner-tr { top: 18px; right: 18px; border-top: 1.5px solid; border-right: 1.5px solid; }
+      .corner-bl { bottom: 18px; left: 18px; border-bottom: 1.5px solid; border-left: 1.5px solid; }
+      .corner-br { bottom: 18px; right: 18px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
+
+      .waveform-path {
+        stroke-dasharray: 1400;
+        stroke-dashoffset: 1400;
+        animation: draw 2.4s cubic-bezier(0.65, 0, 0.35, 1) 0.3s forwards;
+      }
+      @keyframes draw { to { stroke-dashoffset: 0; } }
+
+      .glow-pulse {
+        animation: pulseGlow 3.5s ease-in-out infinite;
+      }
+      @keyframes pulseGlow {
+        0%, 100% { opacity: 0.35; }
+        50% { opacity: 0.8; }
       }
 
-      .fade-up {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      .title-block {
+        border: 1px solid rgba(233,231,221,0.22);
+        font-family: 'JetBrains Mono', monospace;
       }
-
-      .fade-up.visible {
-        opacity: 1;
-        transform: translateY(0);
+      .title-block > div {
+        border-right: 1px solid rgba(233,231,221,0.22);
       }
+      .title-block > div:last-child { border-right: none; }
 
-      .bounce-arrow {
-        animation: bounce 2s infinite;
-      }
-
+      .bounce-arrow { animation: bounce 2.2s infinite; }
       @keyframes bounce {
         0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-        40% { transform: translateY(-12px); }
-        60% { transform: translateY(-6px); }
+        40% { transform: translateY(-10px); }
+        60% { transform: translateY(-5px); }
       }
 
-      .timeline-line {
-        position: absolute;
-        left: 16px;
-        top: 0;
-        bottom: 0;
-        width: 3px;
-        background: linear-gradient(to bottom, var(--primary), var(--secondary));
-        border-radius: 2px;
+      /* ---- fade up ---- */
+      .fade-up {
+        opacity: 0;
+        transform: translateY(26px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+      /* ---- cards ---- */
+      .schem-card {
+        background: var(--paper-card);
+        border: 1px solid var(--line-light);
+        border-radius: 14px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      }
+      .schem-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(20,32,26,0.09);
+        border-color: rgba(184,115,51,0.35);
       }
 
-      .timeline-dot {
+      /* ---- pills ---- */
+      .ic-pill {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        background: var(--paper);
+        color: var(--ink-soft);
+        border: 1px solid var(--line-light);
+        padding: 5px 11px;
+        border-radius: 6px;
+        display: inline-block;
+        transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+      }
+      .ic-pill:hover {
+        border-color: var(--copper);
+        color: var(--ink);
+        box-shadow: 0 0 0 1px var(--copper);
+      }
+
+      .tag-chip {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        font-weight: 500;
+        padding: 4px 10px;
+        border-radius: 5px;
+        background: var(--paper);
+        border: 1px solid var(--line-light);
+        color: var(--ink-soft);
+      }
+
+      /* ---- category icon boxes ---- */
+      .icon-box {
+        width: 44px; height: 44px; border-radius: 9px;
+        display: flex; align-items: center; justify-content: center;
+        position: relative;
+        flex-shrink: 0;
+      }
+      .icon-box::before {
+        content: '';
+        position: absolute; top: 4px; left: 4px;
+        width: 3px; height: 3px; border-radius: 50%;
+        background: rgba(255,255,255,0.55);
+      }
+
+      /* ---- signal spine (desktop scroll indicator) ---- */
+      .spine {
+        position: fixed;
+        right: 26px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 40;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+      }
+      .spine::before {
+        content: '';
         position: absolute;
-        left: 8px;
-        top: 8px;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background: var(--gradient);
-        border: 3px solid white;
-        box-shadow: 0 0 0 3px var(--primary);
+        top: -14px; bottom: -14px; left: 50%;
+        width: 1.5px;
+        background: var(--line-light);
+        transform: translateX(-50%);
+        z-index: -1;
+      }
+      .spine-dot {
+        width: 9px; height: 9px; border-radius: 50%;
+        background: var(--paper-card);
+        border: 1.5px solid var(--line-light);
+        cursor: pointer;
+        transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+      }
+      .spine-dot.active {
+        background: var(--copper);
+        border-color: var(--copper);
+        box-shadow: 0 0 10px rgba(184,115,51,0.6);
+        transform: scale(1.25);
+      }
+      @media (min-width: 1024px) { .spine { display: flex; } }
+
+      /* ---- education trace timeline ---- */
+      .trace-line {
+        position: absolute; left: 17px; top: 6px; bottom: 6px; width: 2px;
+        background: repeating-linear-gradient(to bottom, var(--copper) 0, var(--copper) 6px, transparent 6px, transparent 11px);
+      }
+      .trace-via {
+        position: absolute; left: 8px; top: 4px;
+        width: 20px; height: 20px; border-radius: 50%;
+        background: var(--paper);
+        border: 2.5px solid var(--copper);
         z-index: 2;
       }
-
-      .monogram-logo {
-        width: 40px;
-        height: 40px;
+      .trace-via::after {
+        content: '';
+        position: absolute; inset: 5px;
         border-radius: 50%;
-        background: var(--gradient);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: 800;
-        font-size: 0.875rem;
-        letter-spacing: -0.5px;
+        background: var(--copper);
       }
 
-      .hero-avatar {
-        width: 120px;
-        height: 120px;
+      /* ---- stamp badge ---- */
+      .stamp {
+        width: 68px; height: 68px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.2);
-        border: 3px solid rgba(255, 255, 255, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: white;
-        backdrop-filter: blur(8px);
+        border: 2px dashed var(--copper);
+        display: flex; align-items: center; justify-content: center;
+        margin: 0 auto 16px;
+        transform: rotate(-4deg);
+        background: rgba(184,115,51,0.06);
       }
 
-      .project-card-bar {
-        height: 5px;
-        border-radius: 4px 4px 0 0;
-        background: var(--gradient);
+      /* ---- buttons ---- */
+      .btn-primary {
+        position: relative;
+        background: var(--trace-grad);
+        color: var(--board-deep);
+        font-weight: 600;
       }
+      .btn-outline {
+        border: 1.5px solid rgba(233,231,221,0.5);
+        color: var(--silk);
+      }
+      .btn-outline:hover { border-color: var(--phosphor); color: var(--phosphor); }
 
       .contact-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        background: white;
-        color: var(--dark);
-        padding: 12px 24px;
-        border-radius: 9999px;
-        font-weight: 600;
-        font-size: 0.9rem;
+        display: inline-flex; align-items: center; gap: 10px;
+        background: rgba(233,231,221,0.05);
+        border: 1px solid rgba(233,231,221,0.22);
+        color: var(--silk);
+        padding: 13px 24px;
+        border-radius: 8px;
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 500;
+        font-size: 0.85rem;
         text-decoration: none;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+      }
+      .contact-pill:hover {
+        border-color: var(--phosphor);
+        background: rgba(94,235,165,0.06);
+        transform: translateY(-2px);
       }
 
-      .contact-pill:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      a, button { -webkit-tap-highlight-color: transparent; }
+      a:focus-visible, button:focus-visible {
+        outline: 2px solid var(--phosphor);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .waveform-path, .glow-pulse, .bounce-arrow, .fade-up { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; }
       }
 
       @media (max-width: 767px) {
-        .hero-avatar {
-          width: 96px;
-          height: 96px;
-          font-size: 2rem;
-        }
+        .hero-corner { display: none; }
       }
     </style>
   </head>
-  <body data-id="0" class="font-inter">
-    <app-icon data-id="1" hidden data-icon="cpu" data-palette="Blue"></app-icon>
+  <body class="font-sans">
 
-    <!-- STICKY NAVIGATION -->
-    <header data-id="2" id="navbar-a1b2" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-      <div data-id="3" class="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-[72px]">
-        <a data-id="4" href="#hero-c3d4" class="monogram-logo flex-shrink-0" aria-label="Home">JW</a>
+    <!-- breadboard rail -->
+    <div class="rail-red h-[2px] w-full fixed top-0 left-0 z-[60]"></div>
+    <div class="rail-blue h-[2px] w-full fixed top-[2px] left-0 z-[60]"></div>
 
-        <!-- Desktop Nav -->
-        <nav data-id="5" class="hidden md:flex items-center gap-8">
-          <a data-id="6" href="#about-e5f6" class="nav-link text-sm font-medium text-white/90 hover:text-white">About</a>
-          <a data-id="7" href="#skills-g7h8" class="nav-link text-sm font-medium text-white/90 hover:text-white">Skills</a>
-          <a data-id="8" href="#projects-i9j0" class="nav-link text-sm font-medium text-white/90 hover:text-white">Projects</a>
-          <a data-id="9" href="#education-k1l2" class="nav-link text-sm font-medium text-white/90 hover:text-white">Education</a>
-          <a data-id="10" href="#certifications-m3n4" class="nav-link text-sm font-medium text-white/90 hover:text-white">Certifications</a>
-          <a data-id="11" href="#contact-o5p6" class="nav-link text-sm font-medium text-white/90 hover:text-white">Contact</a>
+    <!-- SIGNAL SPINE (desktop scroll position) -->
+    <nav class="spine" aria-label="Section progress">
+      <button class="spine-dot" data-target="about-e5f6" title="About" aria-label="Go to About"></button>
+      <button class="spine-dot" data-target="skills-g7h8" title="Skills" aria-label="Go to Skills"></button>
+      <button class="spine-dot" data-target="projects-i9j0" title="Projects" aria-label="Go to Projects"></button>
+      <button class="spine-dot" data-target="education-k1l2" title="Education" aria-label="Go to Education"></button>
+      <button class="spine-dot" data-target="certifications-m3n4" title="Certifications" aria-label="Go to Certifications"></button>
+      <button class="spine-dot" data-target="contact-o5p6" title="Contact" aria-label="Go to Contact"></button>
+    </nav>
+
+    <!-- NAV -->
+    <header id="navbar-a1b2" class="fixed top-[2px] left-0 right-0 z-50 bg-board/90 backdrop-blur-md border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-[68px]">
+        <a href="#hero-c3d4" class="chip-logo flex-shrink-0" aria-label="Home">JW</a>
+
+        <nav class="hidden md:flex items-center gap-9">
+          <a href="#about-e5f6" class="nav-link font-mono text-xs uppercase tracking-wider">about<span class="via"></span></a>
+          <a href="#skills-g7h8" class="nav-link font-mono text-xs uppercase tracking-wider">skills<span class="via"></span></a>
+          <a href="#projects-i9j0" class="nav-link font-mono text-xs uppercase tracking-wider">projects<span class="via"></span></a>
+          <a href="#education-k1l2" class="nav-link font-mono text-xs uppercase tracking-wider">education<span class="via"></span></a>
+          <a href="#certifications-m3n4" class="nav-link font-mono text-xs uppercase tracking-wider">certs<span class="via"></span></a>
+          <a href="#contact-o5p6" class="nav-link font-mono text-xs uppercase tracking-wider">contact<span class="via"></span></a>
         </nav>
 
-        <!-- Mobile Menu Button -->
-        <button data-id="12" id="mobile-menu-btn-q7r8" class="md:hidden p-2 text-white" aria-label="Open menu">
-          <i data-id="13" data-lucide="menu" class="w-6 h-6"></i>
+        <button id="mobile-menu-btn-q7r8" class="md:hidden p-2 text-silk" aria-label="Open menu">
+          <i data-lucide="menu" class="w-6 h-6"></i>
         </button>
       </div>
 
-      <!-- Mobile Nav Overlay -->
-      <nav data-id="14" id="mobile-menu-s9t0" class="hidden fixed inset-0 bg-white z-50 flex-col p-6">
-        <div data-id="15" class="flex justify-between items-center mb-10">
-          <div data-id="16" class="monogram-logo">JW</div>
-          <button data-id="17" id="mobile-menu-close-u1v2" class="p-2 text-dark" aria-label="Close menu">
-            <i data-id="18" data-lucide="x" class="w-6 h-6"></i>
+      <nav id="mobile-menu-s9t0" class="hidden fixed inset-0 bg-board z-50 flex-col p-6 dot-grid-dark">
+        <div class="flex justify-between items-center mb-10">
+          <div class="chip-logo">JW</div>
+          <button id="mobile-menu-close-u1v2" class="p-2 text-silk" aria-label="Close menu">
+            <i data-lucide="x" class="w-6 h-6"></i>
           </button>
         </div>
-        <div data-id="19" class="flex flex-col gap-6">
-          <a data-id="20" href="#about-e5f6" class="mobile-nav-link text-lg font-semibold text-dark hover:text-primary">About</a>
-          <a data-id="21" href="#skills-g7h8" class="mobile-nav-link text-lg font-semibold text-dark hover:text-primary">Skills</a>
-          <a data-id="22" href="#projects-i9j0" class="mobile-nav-link text-lg font-semibold text-dark hover:text-primary">Projects</a>
-          <a data-id="23" href="#education-k1l2" class="mobile-nav-link text-lg font-semibold text-dark hover:text-primary">Education</a>
-          <a data-id="24" href="#certifications-m3n4" class="mobile-nav-link text-lg font-semibold text-dark hover:text-primary">Certifications</a>
-          <a data-id="25" href="#contact-o5p6" class="mobile-nav-link text-lg font-semibold text-dark hover:text-primary">Contact</a>
+        <div class="flex flex-col gap-7">
+          <a href="#about-e5f6" class="mobile-nav-link font-mono text-lg text-silk">// about.me</a>
+          <a href="#skills-g7h8" class="mobile-nav-link font-mono text-lg text-silk">// tech_stack[]</a>
+          <a href="#projects-i9j0" class="mobile-nav-link font-mono text-lg text-silk">// projects[]</a>
+          <a href="#education-k1l2" class="mobile-nav-link font-mono text-lg text-silk">// education.log</a>
+          <a href="#certifications-m3n4" class="mobile-nav-link font-mono text-lg text-silk">// achievements.flags</a>
+          <a href="#contact-o5p6" class="mobile-nav-link font-mono text-lg text-silk">// contact.connect()</a>
         </div>
       </nav>
     </header>
 
-    <main data-id="26">
-      <!-- HERO SECTION -->
-      <section data-id="27" id="hero-c3d4" class="gradient-bg min-h-screen flex flex-col items-center justify-center text-center px-4 relative">
-        <div data-id="28" class="hero-avatar mb-6">JW</div>
-        <h1 data-id="29" id="hero-name-w3x4" class="text-4xl md:text-5xl lg:text-[56px] font-extrabold text-white leading-tight mb-4">James B. Willis</h1>
-        <p data-id="30" id="hero-tagline-y5z6" class="text-base md:text-lg lg:text-xl text-white/85 max-w-2xl mb-8 leading-relaxed">
-          Computer Engineering Graduate · Embedded Firmware · FPGA &amp; Digital Design · Full-Stack Web
-        </p>
-        <div data-id="31" class="flex flex-col sm:flex-row items-center gap-4">
-          <a data-id="32" href="#projects-i9j0" id="cta-work-a2b3" class="inline-flex items-center gap-2 bg-white text-primary font-semibold px-7 py-3 rounded-full hover:bg-white/90 transition-colors min-h-[44px]">
-            <i data-id="33" data-lucide="eye" class="w-5 h-5"></i>
-            View My Work
-          </a>
-          <a data-id="34" href="#contact-o5p6" id="cta-contact-c4d5" class="inline-flex items-center gap-2 border-2 border-white text-white font-semibold px-7 py-3 rounded-full hover:bg-white/10 transition-colors min-h-[44px]">
-            <i data-id="35" data-lucide="mail" class="w-5 h-5"></i>
-            Contact Me
-          </a>
+    <main>
+      <!-- HERO -->
+      <section id="hero-c3d4" class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 bg-board dot-grid-dark overflow-hidden">
+        <div class="hero-corner corner-tl"></div>
+        <div class="hero-corner corner-tr"></div>
+        <div class="hero-corner corner-bl"></div>
+        <div class="hero-corner corner-br"></div>
+
+        <!-- ambient radial -->
+        <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 50% 35%, rgba(94,235,165,0.08), transparent 60%);"></div>
+
+        <div class="relative z-10 flex flex-col items-center pt-24">
+          <div class="chip-logo mb-8" style="width:64px;height:64px;font-size:1.1rem;">JW</div>
+
+          <p class="eyebrow on-dark mb-4">// portfolio.init()</p>
+          <h1 class="text-4xl md:text-5xl lg:text-[58px] font-mono font-extrabold text-silk leading-tight mb-5 tracking-tight">James&nbsp;B.&nbsp;Willis</h1>
+          <p class="text-base md:text-lg text-silk/70 max-w-2xl mb-10 leading-relaxed">
+            Computer Engineering Graduate · Embedded Firmware · FPGA &amp; Digital Design · Full-Stack Web Development
+          </p>
+
+          <!-- waveform -->
+          <svg viewBox="0 0 900 120" class="w-full max-w-2xl h-24 mb-10" aria-hidden="true">
+            <path class="waveform-path" d="M0,60 L40,60 L55,20 L70,100 L85,10 L100,60 L140,60 L160,45 L175,75 L190,30 L205,90 L220,60 L260,60 L280,50 L295,70 L310,25 L325,95 L340,60 L380,60 L400,40 L415,80 L430,15 L445,60 L480,60 L500,55 L515,65 L530,35 L545,85 L560,60 L600,60 L620,45 L635,75 L650,20 L665,100 L680,60 L720,60 L740,50 L755,70 L770,30 L785,90 L800,60 L840,60 L860,55 L875,65 L900,60"
+              fill="none" stroke="var(--phosphor)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="glow-pulse" />
+          </svg>
+
+          <div class="flex w-full max-w-xl flex-col sm:flex-row items-center justify-center gap-4 mx-auto mb-14">
+            <a href="#projects-i9j0" class="btn-primary relative inline-flex w-full sm:w-52 items-center justify-center text-center min-h-[44px] px-7 py-3 rounded-lg gap-2 font-mono text-sm"><i data-lucide="eye" class="w-4 h-4"></i><span>view_work()</span></a>
+            <a href="#contact-o5p6" class="btn-outline relative inline-flex w-full sm:w-52 items-center justify-center text-center min-h-[44px] px-7 py-3 rounded-lg gap-2 font-mono text-sm"><i data-lucide="mail" class="w-4 h-4"></i><span>contact_me()</span></a>
+          </div>
         </div>
-        <div data-id="36" class="absolute bottom-8 bounce-arrow text-white/70">
-          <i data-id="37" data-lucide="chevron-down" class="w-8 h-8"></i>
+
+        <!-- title block -->
+        <div class="relative z-10 title-block grid grid-cols-2 md:grid-cols-5 w-full max-w-3xl mx-4 text-[9px] md:text-[10px] text-silk/55 uppercase tracking-wider">
+          <div class="px-3 py-2.5">Drawn: J.B. Willis</div>
+          <div class="px-3 py-2.5">Dwg No: JW-2026</div>
+          <div class="px-3 py-2.5 hidden md:block">Scale: NTS</div>
+          <div class="px-3 py-2.5">Rev: A</div>
+          <div class="px-3 py-2.5">Sheet 1 of 7</div>
+        </div>
+
+        <div class="absolute bottom-6 bounce-arrow text-silk/40">
+          <i data-lucide="chevron-down" class="w-6 h-6"></i>
         </div>
       </section>
 
-      <!-- ABOUT SECTION -->
-      <section data-id="38" id="about-e5f6" class="bg-surface py-20 md:py-28 px-4">
-        <div data-id="39" class="max-w-6xl mx-auto">
-          <h2 data-id="40" class="text-2xl md:text-3xl font-bold text-dark text-center mb-4 fade-up">About Me</h2>
-          <div data-id="41" class="gradient-bar w-16 mx-auto mb-12 fade-up"></div>
+      <!-- ABOUT -->
+      <section id="about-e5f6" class="bg-paper py-20 md:py-28 px-4">
+        <div class="max-w-6xl mx-auto">
+          <p class="eyebrow mb-3 fade-up">// about.me</p>
+          <h2 class="text-2xl md:text-3xl font-mono font-bold text-ink mb-12 fade-up">About</h2>
 
-          <div data-id="42" class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
-            <!-- Bio Card -->
-            <div data-id="43" class="fade-up flex-1 bg-white rounded-2xl p-6 md:p-8 border-l-4 border-primary" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-              <p data-id="44" id="bio-text-e6f7" class="text-body leading-relaxed text-[15px] md:text-base">
+          <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+            <div class="fade-up flex-1 schem-card p-6 md:p-8 border-l-[3px]" style="border-left-color: var(--copper);">
+              <p class="text-inksoft leading-relaxed text-[15px] md:text-base" style="color: var(--ink-soft);">
                 Hi, I'm James — an embedded-focused Computer Engineering graduate from the University of Wyoming with hands-on experience spanning embedded firmware, FPGA and digital design, verification, PCB design, full-stack web development, and RF audio systems. I have a proven track record of leading projects end-to-end as a sole contributor, mentoring 100+ engineering students per semester in a university makerspace, and producing thorough technical documentation for complex systems. I thrive at the intersection of code and circuits — whether architecting a production web platform or tuning a wireless audio protocol on an ESP32.
               </p>
             </div>
-            <!-- Quick Stats -->
-            <div data-id="45" class="fade-up flex flex-col gap-4 lg:w-80 w-full">
-              <div data-id="46" class="bg-white rounded-2xl p-5 flex items-center gap-4 card-hover" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-                <div data-id="47" class="w-11 h-11 rounded-xl gradient-bg flex items-center justify-center flex-shrink-0">
-                  <i data-id="48" data-lucide="graduation-cap" class="w-5 h-5 text-white"></i>
+
+            <div class="fade-up flex flex-col gap-4 lg:w-80 w-full">
+              <div class="schem-card p-5 flex items-center gap-4">
+                <div class="icon-box" style="background: linear-gradient(135deg, var(--copper), var(--copper-light));">
+                  <i data-lucide="graduation-cap" class="w-5 h-5 text-white"></i>
                 </div>
-                <span data-id="49" class="font-semibold text-dark text-sm">B.S. Computer Engineering | UW 2026</span>
+                <span class="font-semibold text-ink text-sm">B.S. Computer Engineering · UW 2026</span>
               </div>
-              <div data-id="50" class="bg-white rounded-2xl p-5 flex items-center gap-4 card-hover" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-                <div data-id="51" class="w-11 h-11 rounded-xl bg-secondary flex items-center justify-center flex-shrink-0">
-                  <i data-id="52" data-lucide="award" class="w-5 h-5 text-white"></i>
+              <div class="schem-card p-5 flex items-center gap-4">
+                <div class="icon-box" style="background: linear-gradient(135deg, var(--phosphor-dim), var(--phosphor));">
+                  <i data-lucide="award" class="w-5 h-5 text-white"></i>
                 </div>
-                <span data-id="53" class="font-semibold text-dark text-sm">EIT Certified · FE Exam Passed</span>
+                <span class="font-semibold text-ink text-sm">EIT Certified · FE Exam Passed</span>
               </div>
-              <div data-id="54" class="bg-white rounded-2xl p-5 flex items-center gap-4 card-hover" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-                <div data-id="55" class="w-11 h-11 rounded-xl gradient-bg flex items-center justify-center flex-shrink-0">
-                  <i data-id="56" data-lucide="star" class="w-5 h-5 text-white"></i>
+              <div class="schem-card p-5 flex items-center gap-4">
+                <div class="icon-box" style="background: linear-gradient(135deg, var(--amber), #C97A1F);">
+                  <i data-lucide="star" class="w-5 h-5 text-white"></i>
                 </div>
-                <span data-id="57" class="font-semibold text-dark text-sm">Makerspace Aid · YODA Award ×4</span>
+                <span class="font-semibold text-ink text-sm">Makerspace Aide · YODA Award ×4</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SKILLS SECTION -->
-      <section data-id="58" id="skills-g7h8" class="bg-white py-20 md:py-28 px-4">
-        <div data-id="59" class="max-w-6xl mx-auto">
-          <h2 data-id="60" class="text-2xl md:text-3xl font-bold text-dark text-center mb-4 fade-up">Technical Skills</h2>
-          <div data-id="61" class="gradient-bar w-16 mx-auto mb-12 fade-up"></div>
+      <!-- SKILLS -->
+      <section id="skills-g7h8" class="bg-papercard py-20 md:py-28 px-4 border-y border-black/5">
+        <div class="max-w-6xl mx-auto">
+          <p class="eyebrow mb-3 fade-up">// tech_stack[]</p>
+          <h2 class="text-2xl md:text-3xl font-mono font-bold text-ink mb-12 fade-up">Technical Skills</h2>
 
-          <div data-id="62" class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             <!-- Programming Languages -->
-            <div data-id="63" class="fade-up bg-white rounded-2xl p-6 md:p-8 card-hover" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-              <div data-id="64" class="text-4xl mb-4">💻</div>
-              <h3 data-id="65" id="skill-cat1-g8h9" class="font-bold text-dark text-lg mb-4">Programming Languages</h3>
-              <div data-id="66" class="flex flex-wrap gap-2">
-                <span data-id="67" class="skill-pill">C</span>
-                <span data-id="68" class="skill-pill">C++</span>
-                <span data-id="69" class="skill-pill">Python</span>
-                <span data-id="70" class="skill-pill">Java</span>
-                <span data-id="71" class="skill-pill">C#</span>
-                <span data-id="72" class="skill-pill">MATLAB</span>
-                <span data-id="73" class="skill-pill">TypeScript</span>
-                <span data-id="74" class="skill-pill">JavaScript</span>
-                <span data-id="75" class="skill-pill">R (exposure)</span>
+            <div class="fade-up schem-card p-6 md:p-8">
+              <div class="icon-box mb-4" style="background: linear-gradient(135deg, var(--copper), var(--copper-light));">
+                <i data-lucide="terminal" class="w-5 h-5 text-white"></i>
+              </div>
+              <h3 class="font-mono font-bold text-ink text-lg mb-4">Programming Languages</h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="ic-pill">C</span><span class="ic-pill">C++</span><span class="ic-pill">Python</span>
+                <span class="ic-pill">Java</span><span class="ic-pill">C#</span><span class="ic-pill">MATLAB</span>
+                <span class="ic-pill">TypeScript</span><span class="ic-pill">JavaScript</span>
+                <span class="ic-pill">R (exposure)</span><span class="ic-pill">Node.js</span>
               </div>
             </div>
             <!-- Embedded & Hardware -->
-            <div data-id="76" class="fade-up bg-white rounded-2xl p-6 md:p-8 card-hover" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-              <div data-id="77" class="text-4xl mb-4">🔌</div>
-              <h3 data-id="78" id="skill-cat2-i0j1" class="font-bold text-dark text-lg mb-4">Embedded &amp; Hardware</h3>
-              <div data-id="79" class="flex flex-wrap gap-2">
-                <span data-id="80" class="skill-pill">ESP32</span>
-                <span data-id="81" class="skill-pill">Arduino</span>
-                <span data-id="82" class="skill-pill">Xilinx Artix-7</span>
-                <span data-id="83" class="skill-pill">ESP-IDF</span>
-                <span data-id="84" class="skill-pill">I2S</span>
-                <span data-id="85" class="skill-pill">SPI</span>
-                <span data-id="86" class="skill-pill">UART</span>
-                <span data-id="87" class="skill-pill">PWM</span>
-                <span data-id="88" class="skill-pill">DMA</span>
-                <span data-id="89" class="skill-pill">Interrupts</span>
-                <span data-id="90" class="skill-pill">Verilog</span>
-                <span data-id="91" class="skill-pill">SystemVerilog</span>
-                <span data-id="92" class="skill-pill">VHDL</span>
-                <span data-id="93" class="skill-pill">Vivado</span>
+            <div class="fade-up schem-card p-6 md:p-8">
+              <div class="icon-box mb-4" style="background: linear-gradient(135deg, var(--phosphor-dim), var(--phosphor));">
+                <i data-lucide="cpu" class="w-5 h-5 text-white"></i>
+              </div>
+              <h3 class="font-mono font-bold text-ink text-lg mb-4">Embedded &amp; Hardware</h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="ic-pill">ESP32</span><span class="ic-pill">Arduino</span><span class="ic-pill">Xilinx Artix-7</span>
+                <span class="ic-pill">ESP-IDF</span><span class="ic-pill">I2S</span><span class="ic-pill">SPI</span>
+                <span class="ic-pill">UART</span><span class="ic-pill">PWM</span><span class="ic-pill">DMA</span>
+                <span class="ic-pill">Interrupts</span><span class="ic-pill">Verilog</span><span class="ic-pill">SystemVerilog</span>
+                <span class="ic-pill">VHDL</span><span class="ic-pill">Vivado</span>
               </div>
             </div>
             <!-- Software & Web -->
-            <div data-id="94" class="fade-up bg-white rounded-2xl p-6 md:p-8 card-hover" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-              <div data-id="95" class="text-4xl mb-4">🛠</div>
-              <h3 data-id="96" id="skill-cat3-k2l3" class="font-bold text-dark text-lg mb-4">Software &amp; Web</h3>
-              <div data-id="97" class="flex flex-wrap gap-2">
-                <span data-id="98" class="skill-pill">Next.js</span>
-                <span data-id="99" class="skill-pill">Supabase</span>
-                <span data-id="100" class="skill-pill">PostgreSQL</span>
-                <span data-id="101" class="skill-pill">Tailwind CSS</span>
-                <span data-id="102" class="skill-pill">Vercel</span>
-                <span data-id="103" class="skill-pill">Git</span>
-                <span data-id="104" class="skill-pill">Linux</span>
-                <span data-id="105" class="skill-pill">Multithreading</span>
-                <span data-id="106" class="skill-pill">Unit Testing</span>
-                <span data-id="107" class="skill-pill">Data Structures</span>
-                <span data-id="108" class="skill-pill">LaTeX</span>
+            <div class="fade-up schem-card p-6 md:p-8">
+              <div class="icon-box mb-4" style="background: linear-gradient(135deg, var(--amber), #C97A1F);">
+                <i data-lucide="layout-grid" class="w-5 h-5 text-white"></i>
+              </div>
+              <h3 class="font-mono font-bold text-ink text-lg mb-4">Software &amp; Web</h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="ic-pill">CSS</span><span class="ic-pill">Tailwind CSS</span><span class="ic-pill">Next.js</span>
+                <span class="ic-pill">Supabase</span><span class="ic-pill">PostgreSQL</span><span class="ic-pill">Design Systems</span>
+                <span class="ic-pill">Responsive Design</span><span class="ic-pill">UI Implementation</span>
+                <span class="ic-pill">Information Architecture</span><span class="ic-pill">Interaction Design</span>
+                <span class="ic-pill">Motion Design</span><span class="ic-pill">User Feedback Iteration</span>
+                <span class="ic-pill">Vercel</span><span class="ic-pill">Git</span><span class="ic-pill">Linux</span>
+                <span class="ic-pill">Multithreading</span><span class="ic-pill">Unit Testing</span>
+                <span class="ic-pill">Data Structures</span><span class="ic-pill">LaTeX</span>
               </div>
             </div>
             <!-- PCB & Lab Tools -->
-            <div data-id="109" class="fade-up bg-white rounded-2xl p-6 md:p-8 card-hover" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-              <div data-id="110" class="text-4xl mb-4">⚡</div>
-              <h3 data-id="111" id="skill-cat4-m4n5" class="font-bold text-dark text-lg mb-4">PCB &amp; Lab Tools</h3>
-              <div data-id="112" class="flex flex-wrap gap-2">
-                <span data-id="113" class="skill-pill">KiCad</span>
-                <span data-id="114" class="skill-pill">Altium</span>
-                <span data-id="115" class="skill-pill">Eagle</span>
-                <span data-id="116" class="skill-pill">LTspice</span>
-                <span data-id="117" class="skill-pill">Simulink</span>
-                <span data-id="118" class="skill-pill">Oscilloscopes</span>
-                <span data-id="119" class="skill-pill">Logic Analyzers</span>
-                <span data-id="120" class="skill-pill">Digilent Discovery 3</span>
-                <span data-id="121" class="skill-pill">Soldering</span>
-                <span data-id="122" class="skill-pill">SPICE/VLSI</span>
+            <div class="fade-up schem-card p-6 md:p-8">
+              <div class="icon-box mb-4" style="background: linear-gradient(135deg, var(--copper-light), var(--phosphor));">
+                <i data-lucide="activity" class="w-5 h-5 text-white"></i>
+              </div>
+              <h3 class="font-mono font-bold text-ink text-lg mb-4">PCB &amp; Lab Tools</h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="ic-pill">KiCad</span><span class="ic-pill">Altium</span><span class="ic-pill">Eagle</span>
+                <span class="ic-pill">LTspice</span><span class="ic-pill">Simulink</span><span class="ic-pill">Oscilloscopes</span>
+                <span class="ic-pill">Logic Analyzers</span><span class="ic-pill">Digilent Discovery 3</span>
+                <span class="ic-pill">Soldering</span><span class="ic-pill">SPICE/VLSI</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- PROJECTS SECTION -->
-      <section data-id="123" id="projects-i9j0" class="bg-surface py-20 md:py-28 px-4">
-        <div data-id="124" class="max-w-6xl mx-auto">
-          <h2 data-id="125" class="text-2xl md:text-3xl font-bold text-dark text-center mb-4 fade-up">Featured Projects</h2>
-          <div data-id="126" class="gradient-bar w-16 mx-auto mb-12 fade-up"></div>
+      <!-- PROJECTS -->
+      <section id="projects-i9j0" class="bg-paper py-20 md:py-28 px-4">
+        <div class="max-w-6xl mx-auto">
+          <p class="eyebrow mb-3 fade-up">// projects[]</p>
+          <h2 class="text-2xl md:text-3xl font-mono font-bold text-ink mb-12 fade-up">Featured Projects</h2>
 
-          <div data-id="127" class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             <!-- Project 1 -->
-            <div data-id="128" class="fade-up bg-white rounded-2xl overflow-hidden card-hover flex flex-col" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-              <div data-id="129" class="project-card-bar"></div>
-              <div data-id="130" class="p-6 flex flex-col flex-1">
-                <div data-id="131" class="flex items-center gap-3 mb-3">
-                  <span data-id="132" class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-primary">Embedded Systems · Senior Capstone</span>
-                  <span data-id="133" class="text-xs text-body font-medium">2025–2026</span>
+            <div class="fade-up schem-card overflow-hidden flex flex-col">
+              <div class="h-[4px]" style="background: var(--trace-grad);"></div>
+              <div class="p-6 flex flex-col flex-1">
+                <div class="flex items-center gap-3 mb-3 flex-wrap">
+                  <span class="tag-chip" style="color: var(--copper); border-color: rgba(184,115,51,0.3);">[ embedded systems · capstone ]</span>
+                  <span class="text-xs font-mono" style="color: var(--ink-soft);">2025–2026</span>
                 </div>
-                <h3 data-id="134" class="font-bold text-dark text-lg mb-3">Project Dandelion – Wireless Audio System</h3>
-                <p data-id="135" class="text-body text-sm leading-relaxed mb-5 flex-1">
+                <h3 class="font-mono font-bold text-ink text-lg mb-3">Project Dandelion — Wireless Audio System</h3>
+                <p class="text-sm leading-relaxed mb-5 flex-1" style="color: var(--ink-soft);">
                   Designed a custom 16-bit wireless audio transmission protocol for ESP32 as a senior capstone project. Implemented I2S timing control for low-latency real-time audio streaming and produced 8+ documentation artifacts including research, funding proposals, and testing records — owning all phases end-to-end.
                 </p>
-                <div data-id="136" class="flex flex-wrap gap-2 mb-5">
-                  <span data-id="137" class="text-xs px-2.5 py-1 rounded-full bg-blue-50 text-primary font-medium">ESP32</span>
-                  <span data-id="138" class="text-xs px-2.5 py-1 rounded-full bg-blue-50 text-primary font-medium">I2S</span>
-                  <span data-id="139" class="text-xs px-2.5 py-1 rounded-full bg-blue-50 text-primary font-medium">C++</span>
-                  <span data-id="140" class="text-xs px-2.5 py-1 rounded-full bg-blue-50 text-primary font-medium">Embedded</span>
-                  <span data-id="141" class="text-xs px-2.5 py-1 rounded-full bg-blue-50 text-primary font-medium">Sole Contributor</span>
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag-chip">ESP32</span><span class="tag-chip">I2S</span><span class="tag-chip">C++</span>
+                  <span class="tag-chip">Embedded</span><span class="tag-chip">Sole Contributor</span>
                 </div>
-                <span data-id="142" class="inline-flex items-center gap-2 text-primary font-semibold text-sm border border-primary px-4 py-2 rounded-full self-start min-h-[44px] cursor-default">
-                  Details <i data-id="143" data-lucide="arrow-right" class="w-4 h-4"></i>
-                </span>
               </div>
             </div>
             <!-- Project 2 -->
-            <div data-id="144" class="fade-up bg-white rounded-2xl overflow-hidden card-hover flex flex-col" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-              <div data-id="145" class="project-card-bar" style="background: linear-gradient(135deg, #06B6D4 0%, #2563EB 100%);"></div>
-              <div data-id="146" class="p-6 flex flex-col flex-1">
-                <div data-id="147" class="flex items-center gap-3 mb-3">
-                  <span data-id="148" class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-teal-100 text-secondary">FPGA · Digital Design</span>
-                  <span data-id="149" class="text-xs text-body font-medium">2025</span>
+            <div class="fade-up schem-card overflow-hidden flex flex-col">
+              <div class="h-[4px]" style="background: linear-gradient(115deg, var(--phosphor) 0%, var(--copper) 100%);"></div>
+              <div class="p-6 flex flex-col flex-1">
+                <div class="flex items-center gap-3 mb-3 flex-wrap">
+                  <span class="tag-chip" style="color: var(--phosphor-dim); border-color: rgba(94,235,165,0.35);">[ fpga · digital design ]</span>
+                  <span class="text-xs font-mono" style="color: var(--ink-soft);">2025</span>
                 </div>
-                <h3 data-id="150" class="font-bold text-dark text-lg mb-3">Interactive FPGA Game System (Artix-7)</h3>
-                <p data-id="151" class="text-body text-sm leading-relaxed mb-5 flex-1">
+                <h3 class="font-mono font-bold text-ink text-lg mb-3">Interactive FPGA Game System (Artix-7)</h3>
+                <p class="text-sm leading-relaxed mb-5 flex-1" style="color: var(--ink-soft);">
                   Designed and implemented a fully playable real-time video game on a Xilinx Artix-7 FPGA with live RGB display output. Modeled enemy behavior, player movement, and VGA rendering as FSMs in synthesizable Verilog. Applied constrained-random testing and SystemVerilog testbenches for comprehensive module-level coverage.
                 </p>
-                <div data-id="152" class="flex flex-wrap gap-2 mb-5">
-                  <span data-id="153" class="text-xs px-2.5 py-1 rounded-full bg-teal-50 text-secondary font-medium">Verilog</span>
-                  <span data-id="154" class="text-xs px-2.5 py-1 rounded-full bg-teal-50 text-secondary font-medium">SystemVerilog</span>
-                  <span data-id="155" class="text-xs px-2.5 py-1 rounded-full bg-teal-50 text-secondary font-medium">Vivado</span>
-                  <span data-id="156" class="text-xs px-2.5 py-1 rounded-full bg-teal-50 text-secondary font-medium">Artix-7</span>
-                  <span data-id="157" class="text-xs px-2.5 py-1 rounded-full bg-teal-50 text-secondary font-medium">FSM</span>
-                  <span data-id="158" class="text-xs px-2.5 py-1 rounded-full bg-teal-50 text-secondary font-medium">Verification</span>
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag-chip">Verilog</span><span class="tag-chip">SystemVerilog</span><span class="tag-chip">Vivado</span>
+                  <span class="tag-chip">Artix-7</span><span class="tag-chip">FSM</span><span class="tag-chip">Verification</span>
                 </div>
-                <span data-id="159" class="inline-flex items-center gap-2 text-secondary font-semibold text-sm border border-secondary px-4 py-2 rounded-full self-start min-h-[44px] cursor-default">
-                  Details <i data-id="160" data-lucide="arrow-right" class="w-4 h-4"></i>
-                </span>
               </div>
             </div>
             <!-- Project 3 -->
-            <div data-id="161" class="fade-up bg-white rounded-2xl overflow-hidden card-hover flex flex-col" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-              <div data-id="162" class="project-card-bar"></div>
-              <div data-id="163" class="p-6 flex flex-col flex-1">
-                <div data-id="164" class="flex items-center gap-3 mb-3">
-                  <span data-id="165" class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-primary">Full-Stack Web · Ongoing</span>
-                  <span data-id="166" class="text-xs text-body font-medium">Ongoing</span>
+            <div class="fade-up schem-card overflow-hidden flex flex-col">
+              <div class="h-[4px]" style="background: var(--trace-grad);"></div>
+              <div class="p-6 flex flex-col flex-1">
+                <div class="flex items-center gap-3 mb-3 flex-wrap">
+                  <span class="tag-chip" style="color: var(--copper); border-color: rgba(184,115,51,0.3);">[ full-stack web · ongoing ]</span>
+                  <span class="text-xs font-mono" style="color: var(--ink-soft);">ongoing</span>
                 </div>
-                <h3 data-id="167" class="font-bold text-dark text-lg mb-3">The Loom – Collaborative TTRPG Platform</h3>
-                <p data-id="168" class="text-body text-sm leading-relaxed mb-5 flex-1">
-                  Architected and built a production-ready full-stack TTRPG campaign platform solo using Next.js and Supabase. Features auth, player profiles, session scheduling, interactive maps, wiki-style lore pages, NPC databases, and Daggerheart character sheet integration for West Marches-style play.
+                <h3 class="font-mono font-bold text-ink text-lg mb-3">The Loom — Collaborative TTRPG Platform</h3>
+                <p class="text-sm leading-relaxed mb-5 flex-1" style="color: var(--ink-soft);">
+                  Architected and built a production-ready full-stack TTRPG campaign platform solo using Next.js and Supabase. Features auth, player profiles, session scheduling, interactive maps, wiki-style lore pages, NPC databases, and Daggerheart character sheet integration for West Marches-style play. Iterated the UI with users, added feedback capture, and used a reusable design system to keep the data-heavy interface scannable and consistent.
                 </p>
-                <div data-id="169" class="flex flex-wrap gap-2 mb-5">
-                  <span data-id="170" class="text-xs px-2.5 py-1 rounded-full bg-blue-50 text-primary font-medium">Next.js</span>
-                  <span data-id="171" class="text-xs px-2.5 py-1 rounded-full bg-blue-50 text-primary font-medium">TypeScript</span>
-                  <span data-id="172" class="text-xs px-2.5 py-1 rounded-full bg-blue-50 text-primary font-medium">Supabase</span>
-                  <span data-id="173" class="text-xs px-2.5 py-1 rounded-full bg-blue-50 text-primary font-medium">PostgreSQL</span>
-                  <span data-id="174" class="text-xs px-2.5 py-1 rounded-full bg-blue-50 text-primary font-medium">Tailwind CSS</span>
-                  <span data-id="175" class="text-xs px-2.5 py-1 rounded-full bg-blue-50 text-primary font-medium">Vercel</span>
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag-chip">Next.js</span><span class="tag-chip">TypeScript</span><span class="tag-chip">Supabase</span>
+                  <span class="tag-chip">PostgreSQL</span><span class="tag-chip">Tailwind CSS</span><span class="tag-chip">Vercel</span>
+                  <span class="tag-chip">Design System</span><span class="tag-chip">User Feedback</span><span class="tag-chip">Data-Heavy UI</span>
                 </div>
-                <span data-id="176" class="inline-flex items-center gap-2 text-primary font-semibold text-sm border border-primary px-4 py-2 rounded-full self-start min-h-[44px] cursor-default">
-                  Details <i data-id="177" data-lucide="arrow-right" class="w-4 h-4"></i>
-                </span>
               </div>
             </div>
             <!-- Project 4 -->
-            <div data-id="178" class="fade-up bg-white rounded-2xl overflow-hidden card-hover flex flex-col" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-              <div data-id="179" class="project-card-bar" style="background: linear-gradient(135deg, #06B6D4 0%, #2563EB 100%);"></div>
-              <div data-id="180" class="p-6 flex flex-col flex-1">
-                <div data-id="181" class="flex items-center gap-3 mb-3">
-                  <span data-id="182" class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-teal-100 text-secondary">Embedded · RF Communication</span>
-                  <span data-id="183" class="text-xs text-body font-medium">Dec. 2025–Apr. 2026</span>
+            <div class="fade-up schem-card overflow-hidden flex flex-col">
+              <div class="h-[4px]" style="background: linear-gradient(115deg, var(--phosphor) 0%, var(--copper) 100%);"></div>
+              <div class="p-6 flex flex-col flex-1">
+                <div class="flex items-center gap-3 mb-3 flex-wrap">
+                  <span class="tag-chip" style="color: var(--phosphor-dim); border-color: rgba(94,235,165,0.35);">[ embedded · rf comms ]</span>
+                  <span class="text-xs font-mono" style="color: var(--ink-soft);">Dec '25–Apr '26</span>
                 </div>
-                <h3 data-id="184" class="font-bold text-dark text-lg mb-3">RF Audio Broadcast System</h3>
-                <p data-id="185" class="text-body text-sm leading-relaxed mb-5 flex-1">
+                <h3 class="font-mono font-bold text-ink text-lg mb-3">RF Audio Broadcast System</h3>
+                <p class="text-sm leading-relaxed mb-5 flex-1" style="color: var(--ink-soft);">
                   Built a full wireless audio transmission system from scratch using Arduino, nRF24L01 RF modules, and analog amplification. Configured simultaneous RF broadcast to multiple receivers without dedicated networking infrastructure, maintaining intelligible audio quality across all nodes.
                 </p>
-                <div data-id="186" class="flex flex-wrap gap-2 mb-5">
-                  <span data-id="187" class="text-xs px-2.5 py-1 rounded-full bg-teal-50 text-secondary font-medium">Arduino</span>
-                  <span data-id="188" class="text-xs px-2.5 py-1 rounded-full bg-teal-50 text-secondary font-medium">nRF24L01</span>
-                  <span data-id="189" class="text-xs px-2.5 py-1 rounded-full bg-teal-50 text-secondary font-medium">Analog Audio</span>
-                  <span data-id="190" class="text-xs px-2.5 py-1 rounded-full bg-teal-50 text-secondary font-medium">RF</span>
-                  <span data-id="191" class="text-xs px-2.5 py-1 rounded-full bg-teal-50 text-secondary font-medium">Embedded</span>
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag-chip">Arduino</span><span class="tag-chip">nRF24L01</span><span class="tag-chip">Analog Audio</span>
+                  <span class="tag-chip">RF</span><span class="tag-chip">Embedded</span>
                 </div>
-                <span data-id="192" class="inline-flex items-center gap-2 text-secondary font-semibold text-sm border border-secondary px-4 py-2 rounded-full self-start min-h-[44px] cursor-default">
-                  Details <i data-id="193" data-lucide="arrow-right" class="w-4 h-4"></i>
-                </span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- EDUCATION SECTION -->
-      <section data-id="194" id="education-k1l2" class="bg-white py-20 md:py-28 px-4">
-        <div data-id="195" class="max-w-4xl mx-auto">
-          <h2 data-id="196" class="text-2xl md:text-3xl font-bold text-dark text-center mb-4 fade-up">Education</h2>
-          <div data-id="197" class="gradient-bar w-16 mx-auto mb-12 fade-up"></div>
+      <!-- EDUCATION -->
+      <section id="education-k1l2" class="bg-papercard py-20 md:py-28 px-4 border-y border-black/5">
+        <div class="max-w-4xl mx-auto">
+          <p class="eyebrow mb-3 fade-up">// education.log</p>
+          <h2 class="text-2xl md:text-3xl font-mono font-bold text-ink mb-12 fade-up">Education</h2>
 
-          <div data-id="198" class="relative pl-12 md:pl-14">
-            <div data-id="199" class="timeline-line"></div>
+          <div class="relative pl-12 md:pl-14">
+            <div class="trace-line"></div>
 
-            <!-- Entry 1 -->
-            <div data-id="200" class="fade-up relative mb-12">
-              <div data-id="201" class="timeline-dot"></div>
-              <div data-id="202" class="bg-white rounded-2xl p-6 md:p-8 card-hover" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-                <div data-id="203" class="text-3xl mb-3">🎓</div>
-                <h3 data-id="204" id="edu1-title-u2v3" class="font-bold text-dark text-lg mb-1">Bachelor of Science — Computer Engineering</h3>
-                <p data-id="205" class="text-primary font-semibold text-sm mb-1">Minor in Computer Science · GPA: 3.4</p>
-                <p data-id="206" class="text-body text-sm mb-4">University of Wyoming · Laramie, WY · 2021 – May 2026</p>
-                <div data-id="207">
-                  <p data-id="208" class="text-xs font-semibold text-dark uppercase tracking-wider mb-2">Relevant Coursework</p>
-                  <div data-id="209" class="flex flex-wrap gap-2">
-                    <span data-id="210" class="text-xs px-2.5 py-1 rounded-full bg-surface text-body font-medium">Digital Systems Design</span>
-                    <span data-id="211" class="text-xs px-2.5 py-1 rounded-full bg-surface text-body font-medium">Computer Architecture</span>
-                    <span data-id="212" class="text-xs px-2.5 py-1 rounded-full bg-surface text-body font-medium">Embedded Systems</span>
-                    <span data-id="213" class="text-xs px-2.5 py-1 rounded-full bg-surface text-body font-medium">FPGA Design</span>
-                    <span data-id="214" class="text-xs px-2.5 py-1 rounded-full bg-surface text-body font-medium">VLSI</span>
+            <div class="fade-up relative mb-12">
+              <div class="trace-via"></div>
+              <div class="schem-card p-6 md:p-8">
+                <h3 class="font-mono font-bold text-ink text-lg mb-1">B.S. — Computer Engineering</h3>
+                <p class="font-semibold text-sm mb-1" style="color: var(--copper);">Minor in Computer Science · GPA: 3.4</p>
+                <p class="text-sm mb-4" style="color: var(--ink-soft);">University of Wyoming · Laramie, WY · 2021 – May 2026</p>
+                <div>
+                  <p class="text-xs font-mono font-semibold text-ink uppercase tracking-wider mb-2">Relevant Coursework</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tag-chip">Digital Systems Design</span>
+                    <span class="tag-chip">Computer Architecture</span>
+                    <span class="tag-chip">Embedded Systems</span>
+                    <span class="tag-chip">FPGA Design</span>
+                    <span class="tag-chip">VLSI</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Entry 2 -->
-            <div data-id="215" class="fade-up relative">
-              <div data-id="216" class="timeline-dot"></div>
-              <div data-id="217" class="bg-white rounded-2xl p-6 md:p-8 card-hover" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-                <div data-id="218" class="text-3xl mb-3">🎓</div>
-                <h3 data-id="219" id="edu2-title-w4x5" class="font-bold text-dark text-lg mb-1">Associate of Science — Engineering</h3>
-                <p data-id="220" class="text-primary font-semibold text-sm mb-1">GPA: 3.9 · Honors in Physical Science</p>
-                <p data-id="221" class="text-body text-sm mb-2">Northwest College · Powell, WY · 2020 – Jan. 2021</p>
+            <div class="fade-up relative">
+              <div class="trace-via"></div>
+              <div class="schem-card p-6 md:p-8">
+                <h3 class="font-mono font-bold text-ink text-lg mb-1">A.S. — Engineering</h3>
+                <p class="font-semibold text-sm mb-1" style="color: var(--copper);">GPA: 3.9 · Honors in Physical Science</p>
+                <p class="text-sm" style="color: var(--ink-soft);">Northwest College · Powell, WY · 2020 – Jan. 2021</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- CERTIFICATIONS SECTION -->
-      <section data-id="222" id="certifications-m3n4" class="bg-surface py-20 md:py-28 px-4">
-        <div data-id="223" class="max-w-6xl mx-auto">
-          <h2 data-id="224" class="text-2xl md:text-3xl font-bold text-dark text-center mb-4 fade-up">Certifications &amp; Achievements</h2>
-          <div data-id="225" class="gradient-bar w-16 mx-auto mb-12 fade-up"></div>
+      <!-- CERTIFICATIONS -->
+      <section id="certifications-m3n4" class="bg-paper py-20 md:py-28 px-4">
+        <div class="max-w-6xl mx-auto">
+          <p class="eyebrow mb-3 fade-up">// achievements.flags</p>
+          <h2 class="text-2xl md:text-3xl font-mono font-bold text-ink mb-12 fade-up">Certifications &amp; Achievements</h2>
 
-          <div data-id="226" class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            <!-- Cert 1 -->
-            <div data-id="227" class="fade-up bg-white rounded-2xl p-6 md:p-8 text-center card-hover" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-              <div data-id="228" class="text-4xl mb-4">🏅</div>
-              <h3 data-id="229" id="cert1-title-y6z7" class="font-bold text-dark text-lg mb-2">Engineer in Training (EIT)</h3>
-              <p data-id="230" class="text-body text-sm mb-4">Wyoming Board of Professional Engineers</p>
-              <p data-id="231" class="text-sm text-body">Passed the Fundamentals of Engineering (FE) Exam · Registration Pending</p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            <div class="fade-up schem-card p-6 md:p-8 text-center">
+              <div class="stamp"><i data-lucide="award" class="w-7 h-7" style="color: var(--copper);"></i></div>
+              <h3 class="font-mono font-bold text-ink text-lg mb-2">Engineer in Training (EIT)</h3>
+              <p class="text-sm mb-3" style="color: var(--ink-soft);">Wyoming Board of Professional Engineers</p>
+              <p class="text-sm" style="color: var(--ink-soft);">Passed the Fundamentals of Engineering (FE) Exam · Registration Pending</p>
             </div>
-            <!-- Cert 2 -->
-            <div data-id="232" class="fade-up bg-white rounded-2xl p-6 md:p-8 text-center card-hover" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-              <div data-id="233" class="text-4xl mb-4">🏅</div>
-              <h3 data-id="234" id="cert2-title-a8b9" class="font-bold text-dark text-lg mb-2">YODA Award × 4</h3>
-              <p data-id="235" class="text-body text-sm mb-4">UW Makerspace Organization</p>
-              <p data-id="236" class="text-sm text-body">Highest makerspace recognition — awarded annually for patience, teaching excellence, and deep technical knowledge over 4 consecutive years.</p>
+            <div class="fade-up schem-card p-6 md:p-8 text-center">
+              <div class="stamp"><i data-lucide="star" class="w-7 h-7" style="color: var(--copper);"></i></div>
+              <h3 class="font-mono font-bold text-ink text-lg mb-2">YODA Award × 4</h3>
+              <p class="text-sm mb-3" style="color: var(--ink-soft);">UW Makerspace Organization</p>
+              <p class="text-sm" style="color: var(--ink-soft);">Highest makerspace recognition — awarded annually for patience, teaching excellence, and deep technical knowledge over 4 consecutive years.</p>
             </div>
-            <!-- Cert 3 -->
-            <div data-id="237" class="fade-up bg-white rounded-2xl p-6 md:p-8 text-center card-hover" style="box-shadow: 0 4px 24px rgba(0,0,0,0.07);">
-              <div data-id="238" class="text-4xl mb-4">🏅</div>
-              <h3 data-id="239" id="cert3-title-c0d1" class="font-bold text-dark text-lg mb-2">Upsilon Pi Epsilon — Chapter President</h3>
-              <p data-id="240" class="text-body text-sm mb-4">Computer Science &amp; Engineering Honor Society</p>
-              <p data-id="241" class="text-sm text-body">Led chapter activities and represented CS &amp; Engineering students as Alpha Chapter President.</p>
+            <div class="fade-up schem-card p-6 md:p-8 text-center">
+              <div class="stamp"><i data-lucide="users" class="w-7 h-7" style="color: var(--copper);"></i></div>
+              <h3 class="font-mono font-bold text-ink text-lg mb-2">Upsilon Pi Epsilon — President</h3>
+              <p class="text-sm mb-3" style="color: var(--ink-soft);">Computer Science &amp; Engineering Honor Society</p>
+              <p class="text-sm" style="color: var(--ink-soft);">Led chapter activities and represented CS &amp; Engineering students as Alpha Chapter President.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- CONTACT SECTION -->
-      <section data-id="242" id="contact-o5p6" class="gradient-bg py-20 md:py-28 px-4">
-        <div data-id="243" class="max-w-4xl mx-auto text-center">
-          <h2 data-id="244" class="text-2xl md:text-3xl font-bold text-white mb-4 fade-up">Let's Connect</h2>
-          <p data-id="245" class="text-white/80 text-base md:text-lg mb-10 max-w-xl mx-auto fade-up">
+      <!-- CONTACT -->
+      <section id="contact-o5p6" class="bg-board dot-grid-dark py-20 md:py-28 px-4 border-t-2" style="border-image: var(--trace-grad) 1;">
+        <div class="max-w-4xl mx-auto text-center">
+          <p class="eyebrow on-dark mb-3 fade-up">// contact.connect()</p>
+          <h2 class="text-2xl md:text-3xl font-mono font-bold text-silk mb-4 fade-up">Let's Connect</h2>
+          <p class="text-silk/65 text-base md:text-lg mb-10 max-w-xl mx-auto fade-up">
             Open to full-time opportunities in Embedded Firmware, FPGA Design, and Software Engineering.
           </p>
-          <div data-id="246" class="flex flex-col sm:flex-row items-center justify-center gap-4 fade-up">
-            <a data-id="247" href="mailto:jwillis.engineer@proton.me" class="contact-pill">
-              <span data-id="248" class="text-xl">📧</span>
-              <span data-id="249">jwillis.engineer@proton.me</span>
-            </a>
-            <a data-id="250" href="https://linkedin.com/in/jwillisengineer" target="_blank" rel="noopener noreferrer" class="contact-pill">
-              <span data-id="251" class="text-xl">💼</span>
-              <span data-id="252">LinkedIn</span>
-            </a>
-            <a data-id="253" href="https://github.com/jwillisengineer" target="_blank" rel="noopener noreferrer" class="contact-pill">
-              <span data-id="254" class="text-xl">🐙</span>
-              <span data-id="255">GitHub</span>
-            </a>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 fade-up">
+            <a href="mailto:jwillis.engineer@proton.me" class="contact-pill"><i data-lucide="mail" class="w-4 h-4" style="color: var(--phosphor);"></i><span>jwillis.engineer@proton.me</span></a>
+            <a href="https://linkedin.com/in/jwillisengineer" target="_blank" rel="noopener noreferrer" class="contact-pill"><i data-lucide="linkedin" class="w-4 h-4" style="color: var(--phosphor);"></i><span>LinkedIn</span></a>
+            <a href="https://github.com/jwillisengineer" target="_blank" rel="noopener noreferrer" class="contact-pill"><i data-lucide="github" class="w-4 h-4" style="color: var(--phosphor);"></i><span>GitHub</span></a>
           </div>
         </div>
       </section>
     </main>
 
     <!-- FOOTER -->
-    <footer data-id="256" class="bg-dark py-8 px-4 relative">
-      <div data-id="257" class="gradient-bar w-24 mx-auto mb-6" style="height:3px;"></div>
-      <p data-id="258" class="text-center text-white/60 text-sm">
-        &copy; 2026 James B. Willis · Computer Engineer
-      </p>
+    <footer class="bg-boarddeep py-8 px-4">
+      <div class="max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-wider text-silk/40">
+        <span>Dwg No. JW-2026 · Rev A · Sheet 7 of 7</span>
+        <span>&copy; 2026 James B. Willis — Computer Engineer</span>
+      </div>
     </footer>
 
     <script>
-      // Guard Lucide icons
       if (typeof lucide !== "undefined" && typeof lucide.createIcons === "function") {
         lucide.createIcons();
       }
 
-      // ===== MOBILE MENU =====
+      // MOBILE MENU
       const mobileMenuBtn = document.getElementById('mobile-menu-btn-q7r8');
       const mobileMenu = document.getElementById('mobile-menu-s9t0');
       const mobileMenuClose = document.getElementById('mobile-menu-close-u1v2');
@@ -659,119 +762,68 @@
         mobileMenu.classList.add('flex');
         document.body.style.overflow = 'hidden';
       }
-
       function closeMobileMenu() {
         mobileMenu.classList.add('hidden');
         mobileMenu.classList.remove('flex');
         document.body.style.overflow = '';
       }
-
       if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileMenu);
       if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMobileMenu);
-
-      document.querySelectorAll('.mobile-nav-link').forEach(function(link) {
+      document.querySelectorAll('.mobile-nav-link').forEach(function (link) {
         link.addEventListener('click', closeMobileMenu);
       });
 
-      // ===== NAVBAR SCROLL EFFECT =====
-      const navbar = document.getElementById('navbar-a1b2');
-      const heroSection = document.getElementById('hero-c3d4');
-      let lastScroll = 0;
+      // SPINE DOT NAVIGATION
+      document.querySelectorAll('.spine-dot').forEach(function (dot) {
+        dot.addEventListener('click', function () {
+          const target = document.getElementById(dot.getAttribute('data-target'));
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
 
-      function handleNavScroll() {
-        const scrollY = window.scrollY;
-        const heroHeight = heroSection ? heroSection.offsetHeight : 500;
-
-        if (scrollY > 80) {
-          navbar.classList.add('nav-scrolled');
-          // Update nav link colors for white bg
-          navbar.querySelectorAll('.nav-link').forEach(function(link) {
-            link.style.color = '';
-            link.classList.remove('text-white/90');
-            if (!link.classList.contains('active')) {
-              link.style.color = '#475569';
-            }
-          });
-        } else {
-          navbar.classList.remove('nav-scrolled');
-          navbar.querySelectorAll('.nav-link').forEach(function(link) {
-            if (!link.classList.contains('active')) {
-              link.style.color = 'rgba(255,255,255,0.9)';
-            }
-          });
-        }
-
-        lastScroll = scrollY;
-      }
-
-      window.addEventListener('scroll', handleNavScroll, { passive: true });
-      handleNavScroll();
-
-      // ===== SCROLL SPY =====
+      // SCROLL SPY (nav links + spine dots)
       const sections = document.querySelectorAll('section[id]');
       const navLinks = document.querySelectorAll('.nav-link');
+      const spineDots = document.querySelectorAll('.spine-dot');
 
-      function updateActiveNav() {
-        const scrollY = window.scrollY + 120;
+      function updateActive() {
+        const scrollY = window.scrollY + 140;
         let currentSection = '';
 
-        sections.forEach(function(section) {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.offsetHeight;
-
-          if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        sections.forEach(function (section) {
+          if (scrollY >= section.offsetTop && scrollY < section.offsetTop + section.offsetHeight) {
             currentSection = section.getAttribute('id');
           }
         });
 
-        navLinks.forEach(function(link) {
-          link.classList.remove('active');
-          const href = link.getAttribute('href');
-          if (href && href.substring(1) === currentSection) {
-            link.classList.add('active');
-            if (navbar.classList.contains('nav-scrolled')) {
-              link.style.color = '#2563EB';
-            } else {
-              link.style.color = '#FFFFFF';
-            }
-          } else {
-            if (navbar.classList.contains('nav-scrolled')) {
-              link.style.color = '#475569';
-            } else {
-              link.style.color = 'rgba(255,255,255,0.9)';
-            }
-          }
+        navLinks.forEach(function (link) {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + currentSection);
+        });
+        spineDots.forEach(function (dot) {
+          dot.classList.toggle('active', dot.getAttribute('data-target') === currentSection);
         });
       }
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
 
-      window.addEventListener('scroll', updateActiveNav, { passive: true });
-      updateActiveNav();
-
-      // ===== INTERSECTION OBSERVER (fade-up animations) =====
+      // FADE-UP REVEAL
       const fadeElements = document.querySelectorAll('.fade-up');
-
       if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
             if (entry.isIntersecting) {
               entry.target.classList.add('visible');
               observer.unobserve(entry.target);
             }
           });
-        }, {
-          threshold: 0.1,
-          rootMargin: '0px 0px -40px 0px'
-        });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-        fadeElements.forEach(function(el, index) {
-          el.style.transitionDelay = (index % 4) * 100 + 'ms';
+        fadeElements.forEach(function (el, index) {
+          el.style.transitionDelay = (index % 4) * 90 + 'ms';
           observer.observe(el);
         });
       } else {
-        // Fallback: show everything
-        fadeElements.forEach(function(el) {
-          el.classList.add('visible');
-        });
+        fadeElements.forEach(function (el) { el.classList.add('visible'); });
       }
     </script>
   </body>
